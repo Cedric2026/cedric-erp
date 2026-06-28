@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cedric进销存管理系统 V2.0 - 产品简介及使用说明书</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; scroll-behavior: smooth; }
+    :root { --primary: #1e3a5f; --accent: #3b82f6; --accent-hover: #2563eb; --success: #10b981; --warning: #f59e0b; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; --shadow-sm: 0 2px 8px rgba(0,0,0,0.06); --shadow-md: 0 8px 24px rgba(0,0,0,0.08); --radius-card: 16px; }
+    a { text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .hero { background: linear-gradient(145deg, #0f2440, #1e3a5f); color: #fff; text-align: center; padding: 64px 20px 48px; border-bottom: 4px solid var(--accent); }
+    .hero h1 { font-size: 38px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .hero h1 .logo-icon { height: 44px; width: auto; vertical-align: middle; display: inline-block; }
+    .hero .subtitle { font-size: 18px; opacity: 0.9; margin-bottom: 20px; font-weight: 300; }
+    .hero .version { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); padding: 6px 24px; border-radius: 40px; font-size: 14px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); }
+    .hero .badge-new { display: inline-block; background: var(--success); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 12px; margin-left: 8px; font-weight: 600; }
+    .hero .btn-group { margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .btn-hero { display: inline-block; padding: 12px 34px; border-radius: 60px; font-size: 15px; font-weight: 600; transition: all 0.2s ease; border: none; cursor: pointer; }
+    .btn-primary-hero { background: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(59,130,246,0.35); }
+    .btn-primary-hero:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    .btn-outline-hero { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.35); }
+    .btn-outline-hero:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .nav-bar { background: #ffffffcc; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 20px; position: sticky; top: 0; z-index: 100; display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap; box-shadow: 0 1px 6px rgba(0,0,0,0.02); }
+    .nav-bar a { color: var(--text-light); text-decoration: none; padding: 16px 4px 12px; font-size: 14px; font-weight: 500; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .nav-bar a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .section { margin-bottom: 56px; scroll-margin-top: 80px; }
+    .section h2 { font-size: 28px; color: var(--primary); border-left: 5px solid var(--accent); padding-left: 18px; margin-bottom: 24px; font-weight: 700; }
+    .section h3 { font-size: 21px; color: var(--primary); margin: 28px 0 14px; font-weight: 600; }
+    .section p { margin-bottom: 16px; font-size: 15px; }
+    .screenshot { width: 100%; max-width: 800px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); margin: 12px 0 24px; border: 1px solid var(--border); }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+    .card { background: #fff; border-radius: var(--radius-card); padding: 24px 20px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); transition: all 0.25s ease; }
+    .card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .card .card-icon { font-size: 34px; margin-bottom: 10px; display: block; }
+    .card h4 { font-size: 17px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+    .card p { font-size: 13.5px; color: var(--text-light); line-height: 1.6; }
+    .card .new-tag { display: inline-block; background: var(--success); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-left: 6px; font-weight: 600; }
+    .feature-list { list-style: none; padding: 0; margin: 8px 0 12px; }
+    .feature-list li { padding: 6px 0; font-size: 14.5px; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid #f1f5f9; }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 15px; }
+    ol, ul { padding-left: 24px; margin: 10px 0 18px; }
+    ol li, ul li { margin-bottom: 6px; font-size: 14.5px; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0 20px; font-size: 14px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    th { background: var(--primary); color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; }
+    td { padding: 11px 16px; border-bottom: 1px solid var(--border); background: #fff; }
+    tr:nth-child(even) td { background: #fafcff; }
+    .tip { background: #eff6ff; border-left: 5px solid var(--accent); padding: 16px 22px; border-radius: 0 12px 12px 0; margin: 20px 0 16px; font-size: 14.5px; }
+    .tip strong { color: var(--accent); }
+    .tip.warning { background: #fef3c7; border-left-color: var(--warning); }
+    .contact-wrapper { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; text-align: center; margin-top: 12px; }
+    .contact-item { flex: 1 1 200px; min-width: 180px; }
+    .contact-item p:first-of-type { font-size: 17px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+    .contact-item .qr-img { width: 160px; height: 160px; border-radius: 16px; border: 1px solid var(--border); object-fit: cover; display: block; margin: 0 auto; }
+    .footer { background: var(--primary); color: #e2e8f0; text-align: center; padding: 32px 20px; font-size: 14px; margin-top: 40px; border-top: 2px solid var(--accent); }
+    .footer strong { color: #fff; }
+    .footer p { margin-bottom: 4px; opacity: 0.9; }
+    .footer .copy { margin-top: 14px; font-size: 12px; opacity: 0.6; }
+    @media (max-width: 768px) { .hero h1 { font-size: 28px; } .hero h1 .logo-icon { height: 34px; } .container { padding: 28px 16px; } .card-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><img src="http://tgwxutc8o.hn-bkt.clouddn.com/logo.png" alt="Logo" class="logo-icon"> Cedric 进销存管理系统</h1>
+  <p class="subtitle">智能库存管理 · 局域网多用户协作 · SQLite 本地数据库</p>
+  <div class="version">V2.0 正式版 <span class="badge-new">全新升级</span></div>
+  <div class="btn-group">
+    <a href="#whats-new" class="btn-hero btn-primary-hero">🆕 V2.0 新特性</a>
+    <a href="#overview" class="btn-hero btn-outline-hero">📖 功能介绍</a>
+    <a href="#guide" class="btn-hero btn-outline-hero">📘 使用说明</a>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <a href="#whats-new">V2.0 新特性</a>
+  <a href="#overview">系统概述</a>
+  <a href="#features">核心功能</a>
+  <a href="#guide">操作指南</a>
+  <a href="#lan">局域网部署</a>
+  <a href="#faq">常见问题</a>
+  <a href="#tech">技术说明</a>
+  <a href="#contact">联系方式</a>
+</div>
+
+<div class="container">
+
+  <div class="section" id="whats-new">
+    <h2>🆕 V2.0 全新升级</h2>
+    <table>
+      <tr><th style="width:25%">升级项</th><th>V1.0</th><th>V2.0</th></tr>
+      <tr><td>数据存储</td><td>JSON 文件</td><td>SQLite 数据库</td></tr>
+      <tr><td>网络模式</td><td>单机离线</td><td>局域网多用户协作</td></tr>
+      <tr><td>权限管理</td><td>管理员/操作员</td><td>超级管理员 + 自定义角色 + 22项权限</td></tr>
+      <tr><td>财务权限</td><td>无</td><td>单价/金额/统计卡 服务端过滤</td></tr>
+      <tr><td>物料图片</td><td>不支持</td><td>支持上传/查看</td></tr>
+      <tr><td>操作日志</td><td>无</td><td>完整操作记录审计</td></tr>
+      <tr><td>数据备份</td><td>手动复制</td><td>一键下载</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="overview">
+    <h2>📋 系统概述</h2>
+    <p><strong>Cedric 进销存管理系统 V2.0</strong> 面向中小型制造工厂、批发零售企业的智能库存管理桌面软件。支持成品、辅料、包材、原材料四大类物料管理。</p>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/login.png" alt="登录界面" class="screenshot">
+    <div class="tip"><strong>适用场景：</strong> 中小型制造工厂 · 批发零售店铺 · 电商仓储 · 个体商户 · 多岗位协作</div>
+  </div>
+
+  <div class="section" id="features">
+    <h2>⚡ 核心功能</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">📦</div><h4>四大库存类型</h4><p>成品、辅料、包材、原材料独立管理，支持物料图片上传和详情查看。</p></div>
+      <div class="card"><div class="card-icon">📥📤</div><h4>智能出入库</h4><p>入库/出库操作简便，支持物料搜索、批量导入，操作完成后可立即打印单据。</p></div>
+      <div class="card"><div class="card-icon">📜</div><h4>出入库记录</h4><p>完整记录查询，支持按仓库、类型、日期筛选，可编辑、打印、删除记录。</p></div>
+      <div class="card"><div class="card-icon">📊</div><h4>月度结存汇总</h4><p>按月统计期初/入库/出库/期末库存，支持全部仓库或单类筛选，可导出CSV和打印。</p></div>
+      <div class="card"><div class="card-icon">⚠️</div><h4>呆滞料预警</h4><p>自动识别长期未流动的物料，三级预警，可自定义阈值天数并持久化保存。</p></div>
+      <div class="card"><div class="card-icon">🖨️</div><h4>一键打印</h4><p>支持入库单、出库单、物料清单、月度结存表打印，格式规范专业。</p></div>
+      <div class="card"><div class="card-icon">👤</div><h4>用户与权限</h4><p>多用户管理，自定义角色权限，22项权限精细管控。<span class="new-tag">V2.0</span></p></div>
+      <div class="card"><div class="card-icon">🌐</div><h4>局域网协作</h4><p>一台电脑做主机，其他电脑通过IP地址连接，数据实时共享。<span class="new-tag">V2.0</span></p></div>
+      <div class="card"><div class="card-icon">📋</div><h4>操作日志</h4><p>记录所有用户操作，便于审计追溯。<span class="new-tag">V2.0</span></p></div>
+      <div class="card"><div class="card-icon">💾</div><h4>数据备份</h4><p>一键下载数据库备份文件，保障数据安全。<span class="new-tag">V2.0</span></p></div>
+    </div>
+  </div>
+
+  <div class="section" id="guide">
+    <h2>📘 操作指南</h2>
+
+    <h3>1. 登录系统</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/login.png" alt="登录界面" class="screenshot">
+    <ul class="feature-list">
+      <li>输入用户名和密码登录（默认 admin / admin123）</li>
+      <li>服务器地址留空为本机，客户端需输入主机IP</li>
+    </ul>
+
+    <h3>2. 库存管理</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/inventory.png" alt="库存管理主页" class="screenshot">
+    <ul class="feature-list">
+      <li>点击顶部标签切换：成品 / 辅料 / 包材 / 原材料</li>
+      <li>统计卡片显示种类、库存数量、库存金额、低库存预警</li>
+      <li>支持按名称、规格、材质、颜色筛选物料</li>
+    </ul>
+
+    <h3>3. 新增物料</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/product-add.png" alt="新增物料" class="screenshot">
+    <ul class="feature-list">
+      <li>填写物料信息，支持上传物料图片</li>
+      <li>选择供应商或手动输入</li>
+    </ul>
+
+    <h3>4. 入库操作</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/stock-in.png" alt="入库操作" class="screenshot">
+    <ul class="feature-list">
+      <li>搜索并选择物料 → 输入数量 → 选择日期和备注 → 保存</li>
+      <li>操作完成后可立即打印单据</li>
+    </ul>
+
+    <h3>5. 出入库记录</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/records.png" alt="出入库记录" class="screenshot">
+    <ul class="feature-list">
+      <li>支持按仓库类型、日期范围筛选</li>
+      <li>每条记录支持编辑、打印、删除</li>
+      <li>支持导出CSV文件</li>
+    </ul>
+
+    <h3>6. 月度结存汇总</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/monthly.png" alt="月度结存汇总" class="screenshot">
+    <ul class="feature-list">
+      <li>选择仓库类型和月份查看汇总数据</li>
+      <li>支持导出CSV和打印</li>
+    </ul>
+
+    <h3>7. 呆滞料预警</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/sluggish.png" alt="呆滞料预警" class="screenshot">
+    <ul class="feature-list">
+      <li>自动识别长期未流动物料，三级预警</li>
+      <li>可自定义阈值天数并持久化保存</li>
+    </ul>
+
+    <h3>8. 物料详情</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/product-detail.png" alt="物料详情" class="screenshot">
+    <ul class="feature-list">
+      <li>点击物料行的「详情」查看完整信息和大图</li>
+    </ul>
+
+    <h3>9. 供应商管理</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/suppliers.png" alt="供应商管理" class="screenshot">
+    <ul class="feature-list">
+      <li>供应商信息维护，支持增、删、改、查</li>
+    </ul>
+
+    <h3>10. 用户管理</h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/users.png" alt="用户管理" class="screenshot">
+    <ul class="feature-list">
+      <li>新增/编辑/删除用户，为用户分配角色</li>
+    </ul>
+
+    <h3>11. 角色权限管理 <span class="new-tag">V2.0</span></h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/roles.png" alt="角色权限管理" class="screenshot">
+    <ul class="feature-list">
+      <li>创建自定义角色，可视化勾选22项权限</li>
+      <li>财务权限（单价/金额/统计卡）可分别控制</li>
+    </ul>
+
+    <h3>12. 操作日志 <span class="new-tag">V2.0</span></h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/logs.png" alt="操作日志" class="screenshot">
+    <ul class="feature-list">
+      <li>自动记录所有用户操作，便于审计追溯</li>
+    </ul>
+
+    <h3>13. 数据备份 <span class="new-tag">V2.0</span></h3>
+    <img src="http://tgwxutc8o.hn-bkt.clouddn.com/backup.png" alt="数据备份" class="screenshot">
+    <ul class="feature-list">
+      <li>一键下载数据库备份文件</li>
+      <li>恢复：将备份文件覆盖到 %APPDATA%\inventory-system\inventory.db</li>
+    </ul>
+  </div>
+
+  <div class="section" id="lan">
+    <h2>🌐 局域网多用户部署 <span class="new-tag">V2.0</span></h2>
+    <table>
+      <tr><th style="width:20%">角色</th><th>操作说明</th></tr>
+      <tr><td>主机</td><td>正常启动程序即可，服务端自动运行</td></tr>
+      <tr><td>主机查IP</td><td>命令行输入 ipconfig，找到 IPv4 地址</td></tr>
+      <tr><td>客户端</td><td>登录界面输入主机IP，再输入账号密码</td></tr>
+      <tr><td>数据存储</td><td>所有数据统一存储在主机上</td></tr>
+    </table>
+    <div class="tip warning"><strong>⚠️ 注意：</strong> 主机需保持开机，客户端才能连接。主机和客户端需在同一局域网。</div>
+  </div>
+  <div class="section" id="faq">
+    <h2>❓ 常见问题</h2>
+    <table>
+      <tr><th>问题</th><th>解答</th></tr>
+       <tr><td>仓库名称可以改吗？</td><td>仓库名称可以根据具体的需求定制更改。</td></tr>
+      <tr><td>数据保存在哪里？</td><td>SQLite 数据库文件，位于 %APPDATA%\inventory-system\inventory.db</td></tr>
+      <tr><td>如何备份数据？</td><td>使用系统内置的「数据备份」功能一键下载，或手动复制 inventory.db 文件。</td></tr>
+      <tr><td>如何切换仓库类型？</td><td>点击库存管理页面的标签页（成品/辅料/包材/原材料）。</td></tr>
+       <tr><td>软件需要联网吗？</td><td>单机使用完全离线；局域网多用户需在同一网络。</td></tr>
+      <tr><td>支持哪些系统？</td><td>目前支持 Windows 7/10/11。</td></tr>
+      <tr><td>客户端如何连接主机？</td><td>主机查IP → 客户端登录界面输入IP地址 → 输入账号密码登录。</td></tr>
+      <tr><td>如何控制用户权限？</td><td>超级管理员在「角色权限」中创建角色并勾选权限，在「用户管理」中为用户分配角色。</td></tr>
+      <tr><td>单价/金额显示***？</td><td>当前用户角色没有「查看单价」或「查看金额」权限，联系管理员授权。</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="tech">
+    <h2>🔧 技术说明</h2>
+    <table>
+      <tr><th style="width:25%">项目</th><th>说明</th></tr>
+      <tr><td>数据库</td><td>SQLite 3（sql.js）</td></tr>
+      <tr><td>安装包大小</td><td>约 120MB</td></tr>
+      <tr><td>运行内存</td><td>约 200MB</td></tr>
+      <tr><td>数据容量</td><td>支持百万级物料和千万级记录</td></tr>
+      <tr><td>支持系统</td><td>Windows 7/10/11</td></tr>
+      <tr><td>局域网端口</td><td>3000（HTTP）</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>📞 联系方式</h2>
+    <div class="contact-wrapper">
+      <div class="contact-item">
+        <p>📱 微信</p>
+        <img src="http://tgwxutc8o.hn-bkt.clouddn.com/wechat-qr.png" alt="微信二维码" class="qr-img">
+        <p style="font-size:13px; color:var(--text-light); margin-top:6px;">扫码添加微信</p>
+      </div>
+      <div class="contact-item">
+        <p>💬 QQ</p>
+        <img src="http://tgwxutc8o.hn-bkt.clouddn.com/qq-qrcode.png" alt="QQ二维码" class="qr-img">
+        <p style="font-size:13px; color:var(--text-light); margin-top:6px;">扫码添加QQ</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>Cedric 进销存管理系统 V2.0</strong></p>
+  <p>智能库存管理 · SQLite 本地数据库 · 局域网多用户协作</p>
+  <p class="copy">© 2026 Cedric. All rights reserved.</p>
+</div>
+
+</body>
+</html>
